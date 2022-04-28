@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  mongodb:
+
+    image: mongo
+    container_name: mongodb
+    ports:
+      - 27017:27017
+
+  app-node:
+    container_name: app-node
+    depends_on:
+      - mongodb
+    build: ./
+    ports:
+      - 3000:3000
+    volumes:
+      - ./data/backup:/data/db
+    environment:
+      - NODE_ENV=production
+      - APP_VERSION=1.0.0
